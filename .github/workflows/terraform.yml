@@ -76,8 +76,8 @@ jobs:
   apply:
     name: Apply
     needs: plan
-    # Never from pull requests; only from the default branch.
-    if: github.event_name == 'push' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    # Never from pull requests; only on pushes to main.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -96,4 +96,4 @@ jobs:
         with:
           name: tfplan-${{ github.sha }} # same run, same commit as Plan
       - run: terraform init
-      - run: terraform apply -lock-timeout=60s tfplan
+      - run: terraform apply -auto-approve -lock-timeout=60s tfplan

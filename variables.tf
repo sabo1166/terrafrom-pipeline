@@ -7,5 +7,5 @@ variable "aws_region" {
 variable "bucket_name" {
   description = "Name of the existing S3 bucket"
   type        = string
-  default     = "terrafrom-s3-pipeline"
+  default     = "s3-treeaform-project-1"
 }

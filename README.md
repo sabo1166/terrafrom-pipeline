@@ -1,7 +1,7 @@
-# Terraform CI/CD for existing bucket `terrafrom-s3-pipeline`
+# Terraform CI/CD for existing bucket `s3-treeaform-project-1`
 
 ## Design
-- Bucket `terrafrom-s3-pipeline` (us-east-1) already exists. It is referenced through
+- Bucket `s3-treeaform-project-1` (us-east-1) already exists. It is referenced through
   `data "aws_s3_bucket"` — read-only. Terraform creates, changes and deletes nothing.
 - **Backend: local.** The bucket is not used for state. The CI runner is ephemeral, so
   local state is discarded after each run; that is only safe because no resources are managed.
@@ -28,10 +28,10 @@ Permissions needed now: `s3:GetBucketLocation`, `s3:ListBucket`, `s3:GetBucket*`
 ## Before ever managing the bucket (not done here)
 Inspect first (needs working credentials):
 ```
-aws s3api get-bucket-versioning --bucket terrafrom-s3-pipeline
-aws s3api get-bucket-encryption --bucket terrafrom-s3-pipeline
-aws s3api get-public-access-block --bucket terrafrom-s3-pipeline
-aws s3api get-bucket-ownership-controls --bucket terrafrom-s3-pipeline
+aws s3api get-bucket-versioning --bucket s3-treeaform-project-1
+aws s3api get-bucket-encryption --bucket s3-treeaform-project-1
+aws s3api get-public-access-block --bucket s3-treeaform-project-1
+aws s3api get-bucket-ownership-controls --bucket s3-treeaform-project-1
 ```
 Then (1) move to a **separate** remote-state bucket (S3 + `use_lockfile`), migrate with
 `terraform init -migrate-state`; (2) write `aws_s3_bucket*` resources matching the observed
